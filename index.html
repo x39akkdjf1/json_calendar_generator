@@ -9,6 +9,11 @@
 <body>
 <main class="container">
   <header class="page-header"><p class="eyebrow">Standalone tool</p><h1>JSON Calendar Generator</h1></header>
+  <section class="panel saved-events-panel">
+    <div class="section-header"><h2>Already saved events</h2><button type="button" id="refreshEventsBtn" class="secondary-btn">Refresh</button></div>
+    <p id="savedEventsStatus" class="status" aria-live="polite">Loading saved events...</p>
+    <div id="savedEventsList" class="saved-events-list" aria-live="polite"></div>
+  </section>
   <form id="eventForm" class="card-form">
     <section class="panel">
       <h2>Event data</h2>
@@ -22,7 +27,7 @@
         <div id="selectedFiles" class="selected-files" aria-live="polite"></div>
       </div>
       <div class="field-grid">
-        <label>URL<input name="url" type="url" value="www.gasthofzumwidder.ch" readonly /></label>
+        <label>URL<input name="url" type="url" value="www.example.com" readonly /></label>
         <label>Date<input name="date" type="date" required /></label>
         <label>End date<input name="date_end" type="date" /></label>
       </div>
@@ -38,22 +43,12 @@
         <small>Hold Ctrl (Windows/Linux) or Command (macOS) to select multiple categories. Select at least one.</small>
       </label>
     </section>
-    <section class="panel">
-      <div class="section-header"><h2>Weekdays</h2><button type="button" id="addWeekdayBtn" class="secondary-btn">Add weekday</button></div>
-      <div id="weekdayList" class="weekday-list"></div>
-    </section>
-    <div class="actions">
-      <button type="button" id="previewBtn" class="secondary-btn">Preview JSON</button>
-      <button type="button" id="downloadJsonBtn" class="primary-btn">Save JSON</button>
-      <button type="button" id="downloadPackageBtn" class="accent-btn">Download folder package</button>
-      <button type="button" id="ftpUploadBtn" class="ftp-btn">Upload to FTP server</button>
-      <button type="button" id="resetBtn" class="danger-btn">Hard reset</button>
-    </div>
+    <section class="panel"><div class="section-header"><h2>Weekdays</h2><button type="button" id="addWeekdayBtn" class="secondary-btn">Add weekday</button></div><div id="weekdayList" class="weekday-list"></div></section>
+    <div class="actions"><button type="button" id="previewBtn" class="secondary-btn">Preview JSON</button><button type="button" id="downloadJsonBtn" class="primary-btn">Save JSON</button><button type="button" id="downloadPackageBtn" class="accent-btn">Download folder package</button><button type="button" id="ftpUploadBtn" class="ftp-btn">Upload to SFTP server</button><button type="button" id="resetBtn" class="danger-btn">New event / reset</button></div>
     <p id="ftpStatus" class="status" aria-live="polite"></p>
   </form>
   <section class="panel preview-panel"><h2>JSON preview</h2><pre id="jsonPreview">{}</pre></section>
 </main>
-<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script><script src="script.js"></script>
 </body>
 </html>
