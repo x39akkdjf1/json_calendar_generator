@@ -1,87 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JSON Calendar Generator</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main class="container">
-      <header class="page-header">
-        <p class="eyebrow">Standalone tool</p>
-        <h1>JSON Calendar Generator</h1>
-      </header>
-
-      <form id="eventForm" class="card-form">
-        <section class="panel">
-          <h2>Event data</h2>
-          <div class="field-grid">
-            <label>Reference<input name="reference" type="text" placeholder="e.g. REF-1001" /></label>
-            <label>Title<input name="title" type="text" placeholder="Event title" required /></label>
-            <label class="wide-field">Description<textarea name="description" rows="4" placeholder="Description"></textarea></label>
-          </div>
-
-          <div class="field-grid">
-            <label class="file-field">Image attachments<input id="imageFiles" type="file" accept="image/*" multiple /></label>
-            <div id="selectedFiles" class="selected-files" aria-live="polite"></div>
-          </div>
-
-          <div class="field-grid">
-            <label>URL<input name="url" type="url" placeholder="https://example.com" /></label>
-            <label>Date<input name="date" type="date" /></label>
-            <label>End date<input name="date_end" type="date" /></label>
-          </div>
-
-          <div class="field-grid">
-            <label>Time start<input class="european-time" name="time_start" type="text" inputmode="numeric" placeholder="HH:MM" pattern="(?:[01]\d|2[0-3]):[0-5]\d" maxlength="5" /></label>
-            <label>Time end<input class="european-time" name="time_end" type="text" inputmode="numeric" placeholder="HH:MM" pattern="(?:[01]\d|2[0-3]):[0-5]\d" maxlength="5" /></label>
-            <label>Location name<input name="location_id" type="text" placeholder="Location name" /></label>
-          </div>
-
-          <label>
-            Categories
-            <select id="category" name="category" multiple size="7">
-              <option value="69">69 Musik: Konzert</option>
-              <option value="70">70 Musik: Party</option>
-              <option value="11">11 Film</option>
-              <option value="14">14 Literatur</option>
-              <option value="71">71 Theater</option>
-              <option value="72">72 Tanz</option>
-              <option value="13">13 Ausstellung</option>
-              <option value="217">217 Vernissage</option>
-              <option value="308">308 Historisches</option>
-              <option value="15">15 Diverses</option>
-              <option value="213">213 Kinder</option>
-              <option value="280">280 Führung</option>
-              <option value="281">281 Vortrag</option>
-            </select>
-            <small>Hold Ctrl (Windows/Linux) or Command (macOS) to select multiple categories.</small>
-          </label>
-        </section>
-
-        <section class="panel">
-          <div class="section-header">
-            <h2>Weekdays</h2>
-            <button type="button" id="addWeekdayBtn" class="secondary-btn">Add weekday</button>
-          </div>
-          <div id="weekdayList" class="weekday-list"></div>
-        </section>
-
-        <div class="actions">
-          <button type="button" id="previewBtn" class="secondary-btn">Preview JSON</button>
-          <button type="button" id="downloadJsonBtn" class="primary-btn">Save JSON</button>
-          <button type="button" id="downloadPackageBtn" class="accent-btn">Download folder package</button>
-        </div>
-      </form>
-
-      <section class="panel preview-panel">
-        <h2>JSON preview</h2>
-        <pre id="jsonPreview">{}</pre>
-      </section>
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-    <script src="script.js"></script>
-  </body>
-</html>
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON Calendar Generator</title><link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<main class="container"><header class="page-header"><p class="eyebrow">Standalone tool</p><h1>JSON Calendar Generator</h1></header>
+<form id="eventForm" class="card-form">
+<section class="panel"><h2>Event data</h2>
+<div class="field-grid"><label>Reference<input name="reference" type="text" placeholder="e.g. REF-1001" /></label><label>Title<input name="title" type="text" placeholder="Event title" required /></label><label class="wide-field">Description<textarea name="description" rows="4" placeholder="Description"></textarea></label></div>
+<div class="field-grid"><label class="file-field">Image attachments<input id="imageFiles" type="file" accept="image/*" multiple /></label><div id="selectedFiles" class="selected-files" aria-live="polite"></div></div>
+<div class="field-grid"><label>URL<input name="url" type="url" placeholder="https://example.com" /></label><label>Date<input name="date" type="date" /></label><label>End date<input name="date_end" type="date" /></label></div>
+<div class="field-grid"><label>Time start<input class="european-time" name="time_start" type="text" inputmode="numeric" placeholder="HH:MM" maxlength="5" /></label><label>Time end<input class="european-time" name="time_end" type="text" inputmode="numeric" placeholder="HH:MM" maxlength="5" /></label><label>Location name<input name="location_id" type="text" placeholder="Location name" /></label></div>
+<label>Categories<select id="category" name="category" multiple size="7"><option value="69">69 Musik: Konzert</option><option value="70">70 Musik: Party</option><option value="11">11 Film</option><option value="14">14 Literatur</option><option value="71">71 Theater</option><option value="72">72 Tanz</option><option value="13">13 Ausstellung</option><option value="217">217 Vernissage</option><option value="308">308 Historisches</option><option value="15">15 Diverses</option><option value="213">213 Kinder</option><option value="280">280 Führung</option><option value="281">281 Vortrag</option></select><small>Hold Ctrl (Windows/Linux) or Command (macOS) to select multiple categories.</small></label>
+</section>
+<section class="panel"><div class="section-header"><h2>Weekdays</h2><button type="button" id="addWeekdayBtn" class="secondary-btn">Add weekday</button></div><div id="weekdayList" class="weekday-list"></div></section>
+<div class="actions"><button type="button" id="previewBtn" class="secondary-btn">Preview JSON</button><button type="button" id="downloadJsonBtn" class="primary-btn">Save JSON</button><button type="button" id="downloadPackageBtn" class="accent-btn">Download folder package</button><button type="button" id="ftpUploadBtn" class="ftp-btn">Upload to FTP server</button></div><p id="ftpStatus" class="status" aria-live="polite"></p>
+</form><section class="panel preview-panel"><h2>JSON preview</h2><pre id="jsonPreview">{}</pre></section></main>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script><script src="script.js"></script>
+</body></html>

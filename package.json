@@ -1,7 +1,8 @@
 {
   "name": "json-calendar-generator",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "Standalone web form for generating calendar JSON and downloadable image bundles.",
-  "scripts": {"start": "node server.js"}
+  "description": "Standalone web form for generating calendar JSON, image bundles, and FTP uploads.",
+  "scripts": { "start": "node server.js" },
+  "dependencies": { "basic-ftp": "^5.0.5" }
 }
