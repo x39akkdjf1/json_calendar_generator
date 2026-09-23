@@ -27,13 +27,14 @@ SFTP_PORT=22
 SFTP_USER=your-sftp-username
 SFTP_PASSWORD=your-sftp-password
 SFTP_BASE_DIR=/path/to/public/kalender
-PUBLIC_IMAGE_BASE_URL=https://www.gasthofzumwidder.ch/kalender
+PUBLIC_IMAGE_BASE_URL=https://example.com/kalender
 ```
 
 Alternatively, use an SSH private key:
 
 ```env
-SFTP_PRIVATE_KEY=./id_ed25519
+SFTP_PRIVATE_KEY=/path/to/ssh/private-key-4827
+SFTP_PRIVATE_KEY_PASSPHRASE=your-key-passphrase
 ```
 
 The SFTP base directory must map to the public HTTPS directory `/kalender`. The credentials and `.env` file must never be committed.
@@ -44,7 +45,7 @@ The application uses SFTP on port 22. Images are uploaded directly into `SFTP_BA
 
 ```json
 "image": [
-  "https://www.gasthofzumwidder.ch/kalender/poster.jpg"
+  "https://example.com/kalender/poster.jpg"
 ]
 ```
 
@@ -61,7 +62,7 @@ The JSON object is keyed by each event's `reference`:
   "WID000": {
     "reference": "WID000",
     "location_id": "199",
-    "image": ["https://www.gasthofzumwidder.ch/kalender/poster.jpg"]
+    "image": ["https://example.com/kalender/poster.jpg"]
   },
   "WID001": {
     "reference": "WID001",
@@ -75,6 +76,12 @@ When uploading, the server downloads the existing `199.json` over SFTP, adds or 
 ## Export behavior
 
 Browser downloads use `199.json` inside a ZIP named after the event title. FTP/SFTP uploads are the authoritative way to update the shared aggregate JSON file.
+
+## TODOs
+
+- Fix reference numbers.
+- Add a list of all saved entries.
+- Find a solution for WordPress import.
 
 ## Security
 
