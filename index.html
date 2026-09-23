@@ -15,7 +15,7 @@
       <div class="field-grid">
         <label>Reference<input name="reference" type="text" readonly /></label>
         <label>Title<input name="title" type="text" placeholder="Event title" required /></label>
-        <label class="wide-field">Description<textarea name="description" rows="4" placeholder="Description"></textarea></label>
+        <label class="wide-field">Description<textarea name="description" rows="4" placeholder="Description" required></textarea></label>
       </div>
       <div class="field-grid">
         <label class="file-field">Image attachments<input id="imageFiles" type="file" accept="image/*" multiple /></label>
@@ -23,19 +23,19 @@
       </div>
       <div class="field-grid">
         <label>URL<input name="url" type="url" value="www.gasthofzumwidder.ch" readonly /></label>
-        <label>Date<input name="date" type="date" /></label>
+        <label>Date<input name="date" type="date" required /></label>
         <label>End date<input name="date_end" type="date" /></label>
       </div>
       <div class="field-grid">
-        <label>Time start<input class="european-time" name="time_start" type="text" inputmode="numeric" placeholder="HH:MM" maxlength="5" /></label>
+        <label>Time start<input class="european-time" name="time_start" type="text" inputmode="numeric" placeholder="HH:MM" maxlength="5" required /></label>
         <label>Time end<input class="european-time" name="time_end" type="text" inputmode="numeric" placeholder="HH:MM" maxlength="5" /></label>
         <label>Location ID<input value="199" type="text" readonly /></label>
       </div>
       <label>Categories
-        <select id="category" name="category" multiple size="7">
-          <option value="69">69 Musik: Konzert</option><option value="70">70 Musik: Party</option><option value="11">11 Film</option><option value="14">14 Literatur</option><option value="71">71 Theater</option><option value="72">72 Tanz</option><option value="13">13 Ausstellung</option><option value="217">217 Vernissage</option><option value="308">308 Historisches</option><option value="15">15 Diverses</option><option value="213">213 Kinder</option><option value="280">280 Führung</option><option value="281">281 Vortrag</option>
+        <select id="category" name="category" multiple size="7" required>
+          <option value="69">69 Musik: Konzert</option><option value="70">70 Musik: Party</option><option value="11">11 Film</option><option value="14">14 Literatur</option><option value="71">71 Tanz</option><option value="72">72 Theater</option><option value="73">73 Sonstiges</option>
         </select>
-        <small>Hold Ctrl (Windows/Linux) or Command (macOS) to select multiple categories.</small>
+        <small>Hold Ctrl (Windows/Linux) or Command (macOS) to select multiple categories. Select at least one.</small>
       </label>
     </section>
     <section class="panel">
