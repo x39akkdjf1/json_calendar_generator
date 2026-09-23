@@ -9,10 +9,8 @@
   <body>
     <main class="container">
       <header class="page-header">
-        <div>
-          <p class="eyebrow">Standalone tool</p>
-          <h1>JSON Calendar Generator</h1>
-        </div>
+        <p class="eyebrow">Standalone tool</p>
+        <h1>JSON Calendar Generator</h1>
       </header>
 
       <form id="eventForm" class="card-form">
@@ -20,8 +18,8 @@
           <h2>Event data</h2>
           <div class="field-grid">
             <label>Reference<input name="reference" type="text" placeholder="e.g. REF-1001" /></label>
-            <label>Title<input name="title" type="text" placeholder="Event title" /></label>
-            <label>Description<textarea name="description" rows="4" placeholder="Description"></textarea></label>
+            <label>Title<input name="title" type="text" placeholder="Event title" required /></label>
+            <label class="wide-field">Description<textarea name="description" rows="4" placeholder="Description"></textarea></label>
           </div>
 
           <div class="field-grid">
@@ -36,11 +34,30 @@
           </div>
 
           <div class="field-grid">
-            <label>Time start<input name="time_start" type="time" /></label>
-            <label>Time end<input name="time_end" type="time" /></label>
-            <label>Category<input name="category" type="text" placeholder="Category" /></label>
-            <label>Location ID<input name="location_id" type="text" placeholder="Location ID" /></label>
+            <label>Time start<input class="european-time" name="time_start" type="text" inputmode="numeric" placeholder="HH:MM" pattern="(?:[01]\d|2[0-3]):[0-5]\d" maxlength="5" /></label>
+            <label>Time end<input class="european-time" name="time_end" type="text" inputmode="numeric" placeholder="HH:MM" pattern="(?:[01]\d|2[0-3]):[0-5]\d" maxlength="5" /></label>
+            <label>Location name<input name="location_id" type="text" placeholder="Location name" /></label>
           </div>
+
+          <label>
+            Categories
+            <select id="category" name="category" multiple size="7">
+              <option value="69">69 Musik: Konzert</option>
+              <option value="70">70 Musik: Party</option>
+              <option value="11">11 Film</option>
+              <option value="14">14 Literatur</option>
+              <option value="71">71 Theater</option>
+              <option value="72">72 Tanz</option>
+              <option value="13">13 Ausstellung</option>
+              <option value="217">217 Vernissage</option>
+              <option value="308">308 Historisches</option>
+              <option value="15">15 Diverses</option>
+              <option value="213">213 Kinder</option>
+              <option value="280">280 Führung</option>
+              <option value="281">281 Vortrag</option>
+            </select>
+            <small>Hold Ctrl (Windows/Linux) or Command (macOS) to select multiple categories.</small>
+          </label>
         </section>
 
         <section class="panel">
