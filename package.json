@@ -1,8 +1,8 @@
 {
   "name": "json-calendar-generator",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "private": true,
-  "description": "Standalone web form for generating calendar JSON, image bundles, and FTP uploads.",
+  "description": "Standalone web form for generating calendar JSON, image bundles, and SFTP uploads.",
   "scripts": { "start": "node server.js" },
-  "dependencies": { "basic-ftp": "^5.0.5", "dotenv": "^16.4.7" }
+  "dependencies": { "dotenv": "^16.4.7", "ssh2-sftp-client": "^11.0.0" }
 }

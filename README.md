@@ -1,6 +1,6 @@
 # JSON Calendar Generator
 
-Standalone browser-based form generator for calendar-entry JSON files, image attachments, and optional FTP/FTPS uploads.
+Standalone browser-based form generator for calendar-entry JSON files, image attachments, and SFTP uploads.
 
 ## Run locally
 
@@ -11,64 +11,74 @@ npm start
 
 Open <http://localhost:3000>.
 
-## FTP credentials with a local `.env` file
+## SFTP configuration
 
-FTP credentials are loaded by the Node.js server from a local `.env` file. They are never sent to the browser.
-
-1. Copy the example file:
+The Node.js server loads credentials from a local `.env` file. Copy the example and edit it:
 
 ```bash
 cp .env.example .env
 ```
 
-2. Edit `.env` and replace the placeholder values:
+Example:
 
 ```env
-FTP_HOST=ftp.example.com
-FTP_PORT=21
-FTP_USER=your-ftp-username
-FTP_PASSWORD=your-ftp-password
-FTP_BASE_DIR=/calendar-events
-FTP_SECURE=true
+SFTP_HOST=sftp.example.com
+SFTP_PORT=22
+SFTP_USER=your-sftp-username
+SFTP_PASSWORD=your-sftp-password
+SFTP_BASE_DIR=/path/to/public/kalender
+PUBLIC_IMAGE_BASE_URL=https://www.gasthofzumwidder.ch/kalender
 ```
 
-3. Start or restart the server:
+Alternatively, use an SSH private key:
 
-```bash
-npm install
-npm start
+```env
+SFTP_PRIVATE_KEY=./id_ed25519
 ```
 
-The server reads `.env` when it starts. Restart `npm start` after changing credentials.
+The SFTP base directory must map to the public HTTPS directory `/kalender`. The credentials and `.env` file must never be committed.
 
-`.env` is ignored by Git. Never commit it or share it publicly. `.env.example` contains placeholders only and is safe to commit. Plain FTP is not recommended; use `FTP_SECURE=true` for explicit FTPS when supported by your provider.
+## SFTP upload behavior
 
-## Generated references and reset
+The application uses SFTP on port 22. Images are uploaded directly into `SFTP_BASE_DIR` and are referenced in JSON as public HTTPS URLs:
 
-The Node.js server stores the reference counter in the local, runtime-generated file `reference-counter.json` next to `server.js`. Each newly opened or hard-reset form requests the next reference:
+```json
+"image": [
+  "https://www.gasthofzumwidder.ch/kalender/poster.jpg"
+]
+```
+
+Events are accumulated in one JSON file named after the fixed `location_id`:
 
 ```text
-WID000, WID001, WID002, ...
+SFTP_BASE_DIR/199.json
 ```
 
-The sequence is shared across browsers and devices using the same server. **Hard reset** clears the form, selected images, and weekday rows, asks for confirmation, and requests a new reference. It does not reset the server counter.
+The JSON object is keyed by each event's `reference`:
 
-## Fixed URL and JSON filename
-
-The JSON `url` field is always `www.gasthofzumwidder.ch`. The JSON filename is based on `location_id`, for example `Zurich.json`.
-
-The browser downloads a ZIP because it cannot directly create a local directory. The ZIP uses the event title as its directory name:
-
-```text
-My-Event.zip
-└── My-Event/
-    ├── Zurich.json
-    ├── poster.jpg
-    └── banner.png
+```json
+{
+  "WID000": {
+    "reference": "WID000",
+    "location_id": "199",
+    "image": ["https://www.gasthofzumwidder.ch/kalender/poster.jpg"]
+  },
+  "WID001": {
+    "reference": "WID001",
+    "location_id": "199"
+  }
+}
 ```
 
-## FTP upload
+When uploading, the server downloads the existing `199.json` over SFTP, adds or replaces the dataset under the current reference, uploads the updated JSON, and then uploads the images to `SFTP_BASE_DIR`.
 
-After configuring `.env`, complete the form, choose images, and click **Upload to FTP server**. The upload creates `<FTP_BASE_DIR>/<event-title>/`, containing `<location_id>.json` and the image files.
+## Export behavior
 
-The upload request is limited to 50 MB. Keep the Node.js server local or protect it with authentication and HTTPS before exposing it publicly.
+Browser downloads use `199.json` inside a ZIP named after the event title. FTP/SFTP uploads are the authoritative way to update the shared aggregate JSON file.
+
+## Security
+
+- Keep `.env` and SSH private keys outside Git.
+- Use SFTP rather than FTP because the connection is encrypted.
+- Do not expose the local Node.js server publicly without authentication and HTTPS.
+- The request body is limited to 50 MB.
