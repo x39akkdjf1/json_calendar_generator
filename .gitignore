@@ -1,2 +1,5 @@
 reference-counter.json
 reference-counter.json.*.tmp
+.env
+.env.*
+!.env.example
