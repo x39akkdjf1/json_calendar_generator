@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON Calendar Generator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Standalone tool</p>
+          <h1>JSON Calendar Generator</h1>
+        </div>
+      </header>
+
+      <form id="eventForm" class="card-form">
+        <section class="panel">
+          <h2>Event data</h2>
+          <div class="field-grid">
+            <label>Reference<input name="reference" type="text" placeholder="e.g. REF-1001" /></label>
+            <label>Title<input name="title" type="text" placeholder="Event title" /></label>
+            <label>Description<textarea name="description" rows="4" placeholder="Description"></textarea></label>
+          </div>
+
+          <div class="field-grid">
+            <label class="file-field">Image attachments<input id="imageFiles" type="file" accept="image/*" multiple /></label>
+            <div id="selectedFiles" class="selected-files" aria-live="polite"></div>
+          </div>
+
+          <div class="field-grid">
+            <label>URL<input name="url" type="url" placeholder="https://example.com" /></label>
+            <label>Date<input name="date" type="date" /></label>
+            <label>End date<input name="date_end" type="date" /></label>
+          </div>
+
+          <div class="field-grid">
+            <label>Time start<input name="time_start" type="time" /></label>
+            <label>Time end<input name="time_end" type="time" /></label>
+            <label>Category<input name="category" type="text" placeholder="Category" /></label>
+            <label>Location ID<input name="location_id" type="text" placeholder="Location ID" /></label>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section-header">
+            <h2>Weekdays</h2>
+            <button type="button" id="addWeekdayBtn" class="secondary-btn">Add weekday</button>
+          </div>
+          <div id="weekdayList" class="weekday-list"></div>
+        </section>
+
+        <div class="actions">
+          <button type="button" id="previewBtn" class="secondary-btn">Preview JSON</button>
+          <button type="button" id="downloadJsonBtn" class="primary-btn">Save JSON</button>
+          <button type="button" id="downloadPackageBtn" class="accent-btn">Download folder package</button>
+        </div>
+      </form>
+
+      <section class="panel preview-panel">
+        <h2>JSON preview</h2>
+        <pre id="jsonPreview">{}</pre>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

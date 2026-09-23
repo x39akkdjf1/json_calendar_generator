@@ -1,0 +1,7 @@
+{
+  "name": "json-calendar-generator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Standalone web form for generating calendar JSON and downloadable image bundles.",
+  "scripts": {"start": "node server.js"}
+}
