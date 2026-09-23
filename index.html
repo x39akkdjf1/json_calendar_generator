@@ -4,51 +4,155 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JSON Calendar Generator</title>
+  <link rel="stylesheet" href="https://unpkg.com/@primer/css@latest/dist/primer.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-<main class="container">
-  <header class="page-header"><p class="eyebrow">Standalone tool</p><h1>JSON Calendar Generator</h1></header>
-  <section class="panel saved-events-panel">
-    <div class="section-header"><h2>Already saved events</h2><button type="button" id="refreshEventsBtn" class="secondary-btn">Refresh</button></div>
-    <p id="savedEventsStatus" class="status" aria-live="polite">Loading saved events...</p>
-    <div id="savedEventsList" class="saved-events-list" aria-live="polite"></div>
-  </section>
-  <form id="eventForm" class="card-form">
-    <section class="panel">
-      <h2>Event data</h2>
-      <div class="field-grid">
-        <label>Reference<input name="reference" type="text" readonly /></label>
-        <label>Title<input name="title" type="text" placeholder="Event title" maxlength="255" required /></label>
-        <label class="wide-field">Description<textarea name="description" rows="4" placeholder="Description" required></textarea></label>
+<body class="bg-color-canvas-default color-fg-default">
+  <main class="container-lg px-3 py-6">
+    <header class="mb-4">
+      <p class="text-bold color-fg-accent text-uppercase f6 mb-2">Standalone tool</p>
+      <h1 class="f1-light">JSON Calendar Generator</h1>
+    </header>
+
+    <section class="Box mb-4">
+      <div class="Box-header d-flex flex-items-center flex-justify-between">
+        <h2 class="f3-light m-0">Already saved events</h2>
+        <button type="button" id="refreshEventsBtn" class="btn btn-sm btn-secondary">Refresh</button>
       </div>
-      <div class="field-grid">
-        <label class="file-field">Image attachments<input id="imageFiles" type="file" accept="image/*" multiple /></label>
-        <div id="selectedFiles" class="selected-files" aria-live="polite"></div>
+      <div class="Box-body">
+        <p id="savedEventsStatus" class="color-fg-muted m-0" aria-live="polite">Loading saved events...</p>
+        <div id="savedEventsList" class="saved-events-list mt-3" aria-live="polite"></div>
       </div>
-      <div class="field-grid">
-        <label>URL<input name="url" type="url" value="www.example.com" readonly /></label>
-        <label>Date<input name="date" type="text" inputmode="numeric" placeholder="D/M/Y" pattern="^(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[0-2])/\d{4}$" required /></label>
-        <label>End date<input name="date_end" type="text" inputmode="numeric" placeholder="D/M/Y" pattern="^(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[0-2])/\d{4}$" /></label>
-      </div>
-      <div class="field-grid">
-        <label>Time start<input name="time_start" type="time" required /></label>
-        <label>Time end<input name="time_end" type="time" /></label>
-        <label>Location ID<input value="199" type="text" readonly /></label>
-      </div>
-      <label>Categories
-        <select id="category" name="category" multiple size="7" required>
-          <option value="69">69 Musik: Konzert</option><option value="70">70 Musik: Party</option><option value="11">11 Film</option><option value="14">14 Literatur</option><option value="71">71 Tanz</option><option value="72">72 Theater</option><option value="73">73 Sonstiges</option>
-        </select>
-        <small>Hold Ctrl (Windows/Linux) or Command (macOS) to select multiple categories. Select at least one.</small>
-      </label>
     </section>
-    <section class="panel"><div class="section-header"><h2>Weekdays</h2><button type="button" id="addWeekdayBtn" class="secondary-btn">Add weekday</button></div><div id="weekdayList" class="weekday-list"></div></section>
-    <div class="actions"><button type="button" id="previewBtn" class="secondary-btn">Preview JSON</button><button type="button" id="downloadJsonBtn" class="primary-btn">Save JSON</button><button type="button" id="downloadPackageBtn" class="accent-btn">Download folder package</button><button type="button" id="ftpUploadBtn" class="ftp-btn">Upload to SFTP server</button><button type="button" id="resetBtn" class="danger-btn">New event / reset</button></div>
-    <p id="ftpStatus" class="status" aria-live="polite"></p>
-  </form>
-  <section class="panel preview-panel"><h2>JSON preview</h2><pre id="jsonPreview">{}</pre></section>
-</main>
-<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script><script src="script.js"></script>
+
+    <form id="eventForm" class="Box p-4">
+      <section class="Box mb-4">
+        <div class="Box-header">
+          <h2 class="f3-light m-0">Event data</h2>
+        </div>
+        <div class="Box-body">
+          <div class="d-grid gutter-condensed">
+            <div class="col-12 col-md-4">
+              <label class="d-block mb-3">
+                <span class="d-block mb-1 text-bold">Reference</span>
+                <input class="form-control" name="reference" type="text" readonly />
+              </label>
+            </div>
+            <div class="col-12 col-md-4">
+              <label class="d-block mb-3">
+                <span class="d-block mb-1 text-bold">Title</span>
+                <input class="form-control" name="title" type="text" placeholder="Event title" maxlength="255" required />
+              </label>
+            </div>
+            <div class="col-12 col-md-4">
+              <label class="d-block mb-3">
+                <span class="d-block mb-1 text-bold">URL</span>
+                <input class="form-control" name="url" type="url" value="www.example.com" readonly />
+              </label>
+            </div>
+          </div>
+
+          <label class="d-block mb-3">
+            <span class="d-block mb-1 text-bold">Description</span>
+            <textarea class="form-control" name="description" rows="4" placeholder="Description" required></textarea>
+          </label>
+
+          <div class="d-grid gutter-condensed">
+            <div class="col-12 col-md-6">
+              <label class="d-block mb-3">
+                <span class="d-block mb-1 text-bold">Image attachments</span>
+                <input id="imageFiles" class="form-control" type="file" accept="image/*" multiple />
+              </label>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="selected-files mt-2" id="selectedFiles" aria-live="polite">No new image attachments selected.</div>
+            </div>
+          </div>
+
+          <div class="d-grid gutter-condensed">
+            <div class="col-12 col-md-4">
+              <label class="d-block mb-3">
+                <span class="d-block mb-1 text-bold">Date</span>
+                <input class="form-control" name="date" type="text" inputmode="numeric" placeholder="D/M/Y" pattern="^(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[0-2])/\d{4}$" required />
+              </label>
+            </div>
+            <div class="col-12 col-md-4">
+              <label class="d-block mb-3">
+                <span class="d-block mb-1 text-bold">End date</span>
+                <input class="form-control" name="date_end" type="text" inputmode="numeric" placeholder="D/M/Y" pattern="^(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[0-2])/\d{4}$" />
+              </label>
+            </div>
+            <div class="col-12 col-md-4">
+              <label class="d-block mb-3">
+                <span class="d-block mb-1 text-bold">Location ID</span>
+                <input class="form-control" value="199" type="text" readonly />
+              </label>
+            </div>
+          </div>
+
+          <div class="d-grid gutter-condensed">
+            <div class="col-12 col-md-4">
+              <label class="d-block mb-3">
+                <span class="d-block mb-1 text-bold">Time start</span>
+                <input class="form-control" name="time_start" type="time" required />
+              </label>
+            </div>
+            <div class="col-12 col-md-4">
+              <label class="d-block mb-3">
+                <span class="d-block mb-1 text-bold">Time end</span>
+                <input class="form-control" name="time_end" type="time" />
+              </label>
+            </div>
+          </div>
+
+          <label class="d-block mb-3">
+            <span class="d-block mb-1 text-bold">Categories</span>
+            <select id="category" class="form-select" name="category" multiple size="7" required>
+              <option value="69">69 Musik: Konzert</option>
+              <option value="70">70 Musik: Party</option>
+              <option value="11">11 Film</option>
+              <option value="14">14 Literatur</option>
+              <option value="71">71 Tanz</option>
+              <option value="72">72 Theater</option>
+              <option value="73">73 Sonstiges</option>
+            </select>
+            <small class="color-fg-muted mt-1 d-block">Hold Ctrl (Windows/Linux) or Command (macOS) to select multiple categories. Select at least one.</small>
+          </label>
+        </div>
+      </section>
+
+      <section class="Box mb-4">
+        <div class="Box-header d-flex flex-items-center flex-justify-between">
+          <h2 class="f3-light m-0">Weekdays</h2>
+          <button type="button" id="addWeekdayBtn" class="btn btn-sm btn-secondary">Add weekday</button>
+        </div>
+        <div class="Box-body">
+          <div id="weekdayList" class="weekday-list"></div>
+        </div>
+      </section>
+
+      <div class="d-flex flex-wrap flex-items-center gap-2 mb-3">
+        <button type="button" id="previewBtn" class="btn btn-secondary">Preview JSON</button>
+        <button type="button" id="downloadJsonBtn" class="btn btn-primary">Save JSON</button>
+        <button type="button" id="downloadPackageBtn" class="btn btn-primary">Download folder package</button>
+        <button type="button" id="ftpUploadBtn" class="btn btn-success">Upload to SFTP server</button>
+        <button type="button" id="resetBtn" class="btn btn-danger">New event / reset</button>
+      </div>
+
+      <p id="ftpStatus" class="status color-fg-success m-0" aria-live="polite"></p>
+    </form>
+
+    <section class="Box mt-4">
+      <div class="Box-header">
+        <h2 class="f3-light m-0">JSON preview</h2>
+      </div>
+      <div class="Box-body">
+        <pre id="jsonPreview" class="mb-0">{}</pre>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
