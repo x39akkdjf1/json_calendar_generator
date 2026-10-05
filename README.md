@@ -55,23 +55,23 @@ Events are accumulated in one JSON file named after the fixed `location_id`:
 SFTP_BASE_DIR/199.json
 ```
 
-The JSON object is keyed by each event's `reference`:
+The events are stored as an array and upserted by each event's `reference` (legacy object-shaped files are converted to an array when read):
 
 ```json
-{
-  "WID000": {
+[
+  {
     "reference": "WID000",
     "location_id": "199",
     "image": ["https://example.com/kalender/poster.jpg"]
   },
-  "WID001": {
+  {
     "reference": "WID001",
     "location_id": "199"
   }
-}
+]
 ```
 
-When uploading, the server downloads the existing `199.json` over SFTP, adds or replaces the dataset under the current reference, uploads the updated JSON, and then uploads the images to `SFTP_BASE_DIR`.
+When uploading, the server downloads the existing `199.json` over SFTP, adds the event to the array or replaces the one with the current reference, uploads the updated JSON, and then uploads the images to `SFTP_BASE_DIR`.
 
 ## Export behavior
 
