@@ -41,7 +41,7 @@ The SFTP base directory must map to the public HTTPS directory `/kalender`. The 
 
 ## SFTP upload behavior
 
-The application uses SFTP on port 22. Images are uploaded directly into `SFTP_BASE_DIR` and are referenced in JSON as public HTTPS URLs:
+The application uses SFTP on port 22. Only one image per event is allowed; it is uploaded directly into `SFTP_BASE_DIR` and are referenced in JSON as public HTTPS URLs:
 
 ```json
 "image": [
