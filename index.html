@@ -19,8 +19,8 @@
     <section class="panel">
       <h2>Veranstaltungsdaten</h2><p class="required-note"><span class="required-mark" aria-hidden="true">*</span> = Pflichtfeld</p>
       <div class="field-grid">
-        <label>Titel <span class="required-mark" aria-hidden="true">*</span><input name="title" type="text" placeholder="Titel der Veranstaltung" maxlength="255" required /></label>
-        <label class="wide-field">Beschreibung <span class="required-mark" aria-hidden="true">*</span><textarea name="description" rows="4" placeholder="Beschreibung" required></textarea></label>
+        <label><span class="field-label">Titel <span class="required-mark" aria-hidden="true">*</span></span><input name="title" type="text" placeholder="Titel der Veranstaltung" maxlength="255" required /></label>
+        <label class="wide-field"><span class="field-label">Beschreibung <span class="required-mark" aria-hidden="true">*</span></span><textarea name="description" rows="4" placeholder="Beschreibung" required></textarea></label>
       </div>
       <div class="field-grid">
         <label class="file-field">Bild (nur ein Bild erlaubt)<input id="imageFiles" type="file" accept="image/*" /></label>
@@ -28,14 +28,14 @@
       </div>
       <div class="field-grid">
         <label>URL<input name="url" type="text" value="www.gasthofzumwidder.com" /></label>
-        <label>Datum <span class="required-mark" aria-hidden="true">*</span><input name="date" type="date" required /></label>
+        <label><span class="field-label">Datum <span class="required-mark" aria-hidden="true">*</span></span><input name="date" type="date" required /></label>
         <label>Enddatum<input name="date_end" type="date" /></label>
       </div>
       <div class="field-grid">
-        <label>Beginn <span class="required-mark" aria-hidden="true">*</span><input name="time_start" type="time" required /></label>
+        <label><span class="field-label">Beginn <span class="required-mark" aria-hidden="true">*</span></span><input name="time_start" type="time" required /></label>
         <label>Ende<input name="time_end" type="time" /></label>
       </div>
-      <label>Kategorien <span class="required-mark" aria-hidden="true">*</span>
+      <label><span class="field-label">Kategorien <span class="required-mark" aria-hidden="true">*</span></span>
         <select id="category" name="category" multiple size="7" required>
           <option value="69">69 Musik: Konzert</option><option value="70">70 Musik: Party</option><option value="11">11 Film</option><option value="14">14 Literatur</option><option value="71">71 Tanz</option><option value="72">72 Theater</option><option value="73">73 Sonstiges</option>
         </select>
@@ -43,11 +43,11 @@
       </label>
     </section>
     <section class="panel"><div class="section-header"><h2>Wochentage</h2><button type="button" id="addWeekdayBtn" class="secondary-btn">Wochentag hinzufügen</button></div><div id="weekdayList" class="weekday-list"></div></section>
-    <div class="actions"><button type="button" id="previewBtn" class="secondary-btn">JSON-Vorschau</button><button type="button" id="downloadJsonBtn" class="primary-btn">JSON speichern</button><button type="button" id="downloadPackageBtn" class="accent-btn">Ordnerpaket herunterladen</button><button type="button" id="ftpUploadBtn" class="ftp-btn">Auf SFTP-Server hochladen</button><button type="button" id="resetBtn" class="danger-btn">Neue Veranstaltung / Zurücksetzen</button></div>
+    <div class="actions"><button type="button" id="ftpUploadBtn" class="ftp-btn">Auf SFTP-Server hochladen</button><button type="button" id="resetBtn" class="danger-btn">Neue Veranstaltung / Zurücksetzen</button></div>
     <p id="ftpStatus" class="status" aria-live="polite"></p>
   </form>
   <section class="panel preview-panel"><h2>JSON-Vorschau</h2><pre id="jsonPreview">{}</pre></section>
 </main>
-<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script><script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
