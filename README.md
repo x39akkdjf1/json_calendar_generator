@@ -41,11 +41,18 @@ The SFTP base directory must map to the public HTTPS directory `/kalender`. The 
 
 ## SFTP upload behavior
 
-The application uses SFTP on port 22. Only one image per event is allowed; it is uploaded directly into `SFTP_BASE_DIR` and are referenced in JSON as public HTTPS URLs:
+The application uses SFTP on port 22. Only one image per event is allowed; it is uploaded directly into `SFTP_BASE_DIR` and referenced in JSON as a public HTTPS URL:
 
 ```json
-"image": [
-  "https://example.com/kalender/poster.jpg"
+"image": "https://example.com/kalender/poster.jpg"
+```
+
+Video URLs or other attachment entries can be entered one per line. They are stored as a string array, with blank lines omitted:
+
+```json
+"attachments": [
+  "https://example.com/video",
+  "Any other user-entered entry"
 ]
 ```
 
@@ -62,7 +69,8 @@ The events are stored as an array and upserted by each event's `reference` (lega
   {
     "reference": "WID000",
     "location_id": "199",
-    "image": ["https://example.com/kalender/poster.jpg"]
+    "image": "https://example.com/kalender/poster.jpg",
+    "attachments": ["https://example.com/video"]
   },
   {
     "reference": "WID001",
