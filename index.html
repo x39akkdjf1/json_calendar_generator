@@ -33,7 +33,10 @@
       .saved-event-edit strong, .saved-event-edit span { @apply block; }
       .saved-event-edit span { @apply mt-1 text-sm text-gray-500; }
       .saved-event-delete, .remove-btn { @apply px-2.5 py-2 bg-gray-100 text-gray-800 border border-gray-400 rounded-lg cursor-pointer font-bold hover:bg-gray-200; }
-      .weekday-list { @apply grid gap-3.5; }
+      .weekday-section { @apply flex flex-col items-start gap-3; }
+      .weekday-list { @apply grid gap-3 w-full; }
+      .weekday-list:empty { @apply hidden; }
+      .compact-btn { @apply px-3 py-1.5 text-sm bg-gray-200 text-gray-900 hover:bg-gray-300; }
       .weekday-row { @apply grid gap-3 p-3 border border-gray-300 rounded-xl bg-gray-50 grid-cols-[repeat(auto-fit,minmax(150px,1fr))]; }
       .remove-btn { @apply self-end; }
       .actions { @apply flex flex-col sm:flex-row flex-wrap gap-3 mt-5; }
@@ -58,7 +61,20 @@
   <form id="eventForm" class="card-form">
     <input name="reference" type="hidden" />
     <section class="panel">
-      <h2>Veranstaltungsdaten</h2><p class="required-note"><span class="required-mark" aria-hidden="true">*</span> = Pflichtfeld</p>
+      <h2>Datum und Uhrzeit</h2><p class="required-note"><span class="required-mark" aria-hidden="true">*</span> = Pflichtfeld</p>
+      <div class="field-grid">
+        <label>Datum <span class="required-mark" aria-hidden="true">*</span><input name="date" type="date" required /></label>
+        <label>Enddatum<input name="date_end" type="date" /></label>
+        <label>Beginn <span class="required-mark" aria-hidden="true">*</span><input name="time_start" type="time" required /></label>
+        <label>Ende<input name="time_end" type="time" /></label>
+      </div>
+      <div class="weekday-section">
+        <button type="button" id="addWeekdayBtn" class="compact-btn">+ Wochentag hinzufügen</button>
+        <div id="weekdayList" class="weekday-list"></div>
+      </div>
+    </section>
+    <section class="panel">
+      <h2>Titel, Beschreibung und Bild</h2>
       <div class="field-grid">
         <label>Titel <span class="required-mark" aria-hidden="true">*</span><input name="title" type="text" placeholder="Titel der Veranstaltung" maxlength="255" required /></label>
         <label class="wide-field">Beschreibung <span class="required-mark" aria-hidden="true">*</span><textarea name="description" rows="4" placeholder="Beschreibung" required></textarea></label>
@@ -67,24 +83,18 @@
         <label class="file-field">Bild (nur ein Bild erlaubt)<input id="imageFiles" type="file" accept="image/*" /></label>
         <div id="selectedFiles" class="selected-files" aria-live="polite"></div>
       </div>
-      <div class="field-grid">
-        <label>URL<input name="url" type="text" value="www.gasthofzumwidder.com" /></label>
-        <label>Datum <span class="required-mark" aria-hidden="true">*</span><input name="date" type="date" required /></label>
-        <label>Enddatum<input name="date_end" type="date" /></label>
-      </div>
-      <div class="field-grid">
-        <label>Beginn <span class="required-mark" aria-hidden="true">*</span><input name="time_start" type="time" required /></label>
-        <label>Ende<input name="time_end" type="time" /></label>
-      </div>
-      <label>Kategorien <span class="required-mark" aria-hidden="true">*</span>
-        <select id="category" name="category" required>
-          <option value="">Bitte Kategorie auswählen</option><option value="69">69 Musik: Konzert</option><option value="70">70 Musik: Party</option><option value="11">11 Film</option><option value="14">14 Literatur</option><option value="71">71 Tanz</option><option value="72">72 Theater</option><option value="73">73 Sonstiges</option>
-        </select>
-        <small>Es kann genau eine Kategorie ausgewählt werden.</small>
-      </label>
     </section>
-    <section class="panel"><div class="section-header"><h2>Wochentage</h2><button type="button" id="addWeekdayBtn" class="secondary-btn">Wochentag hinzufügen</button></div><div id="weekdayList" class="weekday-list"></div></section>
     <section class="panel">
+      <h2>Anhang und Kategorie</h2>
+      <div class="field-grid">
+        <label>Kategorien <span class="required-mark" aria-hidden="true">*</span>
+          <select id="category" name="category" required>
+            <option value="">Bitte Kategorie auswählen</option><option value="69">69 Musik: Konzert</option><option value="70">70 Musik: Party</option><option value="11">11 Film</option><option value="14">14 Literatur</option><option value="71">71 Tanz</option><option value="72">72 Theater</option><option value="73">73 Sonstiges</option>
+          </select>
+          <small>Es kann genau eine Kategorie ausgewählt werden.</small>
+        </label>
+        <label>URL<input name="url" type="text" value="www.gasthofzumwidder.com" /></label>
+      </div>
       <label class="wide-field">Anhänge (URLs oder Videos)
         <textarea name="attachments" rows="3" placeholder="Ein Eintrag pro Zeile"></textarea>
         <small>Ein Eintrag pro Zeile.</small>
