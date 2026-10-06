@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JSON-Kalendergenerator</title>
+  <title>Kalendereintrager3000</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style type="text/tailwindcss">
     @layer components {
@@ -52,7 +52,7 @@
 </head>
 <body class="bg-gray-100 text-gray-900 font-sans antialiased">
 <main class="container">
-  <header class="page-header"><p class="eyebrow">Eigenständiges Werkzeug</p><h1>JSON-Kalendergenerator</h1></header>
+  <header class="page-header"><h1>Kalendereintrager3000</h1></header>
   <section class="panel saved-events-panel">
     <div class="section-header"><h2>Bereits gespeicherte Veranstaltungen</h2><button type="button" id="refreshEventsBtn" class="secondary-btn">Aktualisieren</button></div>
     <p id="savedEventsStatus" class="status" aria-live="polite">Gespeicherte Veranstaltungen werden geladen...</p>
@@ -80,7 +80,7 @@
         <label class="wide-field">Beschreibung <span class="required-mark" aria-hidden="true">*</span><textarea name="description" rows="4" placeholder="Beschreibung" required></textarea></label>
       </div>
       <div class="field-grid">
-        <label class="file-field">Bild (nur ein Bild erlaubt)<input id="imageFiles" type="file" accept="image/*" /></label>
+        <label class="file-field">Bild<input id="imageFiles" type="file" accept="image/*" /></label>
         <div id="selectedFiles" class="selected-files" aria-live="polite"></div>
       </div>
     </section>
@@ -91,7 +91,7 @@
           <select id="category" name="category" required>
             <option value="">Bitte Kategorie auswählen</option><option value="69">69 Musik: Konzert</option><option value="70">70 Musik: Party</option><option value="11">11 Film</option><option value="14">14 Literatur</option><option value="71">71 Tanz</option><option value="72">72 Theater</option><option value="73">73 Sonstiges</option>
           </select>
-          <small>Es kann genau eine Kategorie ausgewählt werden.</small>
+          <small>Z.Z. kann nur eine Kategorie ausgewählt werden.</small>
         </label>
         <label>URL<input name="url" type="text" value="www.gasthofzumwidder.com" /></label>
       </div>
