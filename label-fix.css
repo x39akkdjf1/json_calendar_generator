@@ -1,7 +1,0 @@
-/* Keep the required asterisk on the same line as the field title */
-.card-form label { display: block; }
-.card-form label > input,
-.card-form label > select,
-.card-form label > textarea { display: block; width: 100%; margin-top: 6px; }
-.card-form label > small { display: block; margin-top: 6px; }
-.card-form label .required-mark { display: inline; margin-left: 2px; }

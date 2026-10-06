@@ -4,10 +4,51 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JSON-Kalendergenerator</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="label-fix.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style type="text/tailwindcss">
+    @layer components {
+      .container { @apply max-w-5xl mx-auto px-5 pt-6 pb-20 sm:pt-12; }
+      .page-header { @apply mb-6; }
+      .eyebrow { @apply mb-2 text-xs font-bold uppercase tracking-widest text-gray-500; }
+      h1 { @apply text-4xl font-bold text-gray-900; }
+      h2 { @apply mb-3 text-xl font-semibold text-gray-900; }
+      .card-form, .panel { @apply bg-white border border-gray-300 rounded-2xl shadow-md; }
+      .card-form { @apply p-4 sm:p-6; }
+      .panel { @apply p-4 sm:p-5 mb-6; }
+      .field-grid { @apply grid gap-4 mb-4 grid-cols-[repeat(auto-fit,minmax(210px,1fr))]; }
+      .wide-field { @apply sm:col-span-2; }
+      label { @apply block text-sm font-semibold text-gray-800; }
+      label > input, label > select, label > textarea { @apply block w-full mt-1.5; }
+      label > small { @apply block mt-1.5; }
+      input, textarea, select { @apply w-full px-3.5 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500; }
+      input[readonly] { @apply bg-gray-100 text-gray-600; }
+      textarea { @apply min-h-28 resize-y; }
+      small { @apply block mt-1.5 text-gray-500 font-normal; }
+      .selected-files { @apply min-h-12 px-3 py-2.5 border border-dashed border-gray-400 rounded-lg bg-gray-50 text-gray-500; }
+      .file-pill { @apply inline-flex px-2.5 py-1.5 m-1 rounded-full bg-gray-200 text-gray-800 text-xs font-semibold; }
+      .section-header { @apply flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3; }
+      .saved-events-list { @apply grid gap-2.5 grid-cols-[repeat(auto-fit,minmax(240px,1fr))]; }
+      .saved-event { @apply flex items-stretch gap-2 p-2.5 border border-gray-300 rounded-xl bg-gray-50; }
+      .saved-event-edit { @apply flex-1 p-2 bg-transparent text-left text-gray-900 hover:bg-gray-200 rounded-lg cursor-pointer; }
+      .saved-event-edit strong, .saved-event-edit span { @apply block; }
+      .saved-event-edit span { @apply mt-1 text-sm text-gray-500; }
+      .saved-event-delete, .remove-btn { @apply px-2.5 py-2 bg-gray-100 text-gray-800 border border-gray-400 rounded-lg cursor-pointer font-bold hover:bg-gray-200; }
+      .weekday-list { @apply grid gap-3.5; }
+      .weekday-row { @apply grid gap-3 p-3 border border-gray-300 rounded-xl bg-gray-50 grid-cols-[repeat(auto-fit,minmax(150px,1fr))]; }
+      .remove-btn { @apply self-end; }
+      .actions { @apply flex flex-col sm:flex-row flex-wrap gap-3 mt-5; }
+      button { @apply cursor-pointer rounded-lg px-4 py-3 font-bold; }
+      .secondary-btn { @apply bg-gray-200 text-gray-900 hover:bg-gray-300; }
+      .ftp-btn { @apply bg-gray-800 text-white hover:bg-gray-900; }
+      .danger-btn { @apply bg-white text-gray-800 border border-gray-500 hover:bg-gray-100; }
+      .status { @apply min-h-6 text-gray-700 font-semibold; }
+      .required-mark { @apply inline ml-0.5 font-bold text-gray-900; }
+      .required-note { @apply mb-3 text-sm text-gray-600; }
+      pre { @apply m-0 whitespace-pre-wrap break-words bg-gray-900 text-gray-200 rounded-xl p-4 min-h-36 overflow-x-auto; }
+    }
+  </style>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-900 font-sans antialiased">
 <main class="container">
   <header class="page-header"><p class="eyebrow">Eigenständiges Werkzeug</p><h1>JSON-Kalendergenerator</h1></header>
   <section class="panel saved-events-panel">
@@ -37,10 +78,10 @@
         <label>Ende<input name="time_end" type="time" /></label>
       </div>
       <label>Kategorien <span class="required-mark" aria-hidden="true">*</span>
-        <select id="category" name="category" multiple size="7" required>
-          <option value="69">69 Musik: Konzert</option><option value="70">70 Musik: Party</option><option value="11">11 Film</option><option value="14">14 Literatur</option><option value="71">71 Tanz</option><option value="72">72 Theater</option><option value="73">73 Sonstiges</option>
+        <select id="category" name="category" required>
+          <option value="">Bitte Kategorie auswählen</option><option value="69">69 Musik: Konzert</option><option value="70">70 Musik: Party</option><option value="11">11 Film</option><option value="14">14 Literatur</option><option value="71">71 Tanz</option><option value="72">72 Theater</option><option value="73">73 Sonstiges</option>
         </select>
-        <small>Mit Strg (Windows/Linux) bzw. Cmd (macOS) können mehrere Kategorien ausgewählt werden. Mindestens eine Kategorie ist erforderlich.</small>
+        <small>Es kann genau eine Kategorie ausgewählt werden.</small>
       </label>
     </section>
     <section class="panel"><div class="section-header"><h2>Wochentage</h2><button type="button" id="addWeekdayBtn" class="secondary-btn">Wochentag hinzufügen</button></div><div id="weekdayList" class="weekday-list"></div></section>
@@ -50,6 +91,7 @@
         <small>Ein Eintrag pro Zeile.</small>
       </label>
     </section>
+    <section class="panel"><div class="section-header"><h2>Vorschau</h2><button type="button" id="previewBtn" class="secondary-btn">Vorschau aktualisieren</button></div><pre id="jsonPreview"></pre></section>
     <div class="actions"><button type="button" id="ftpUploadBtn" class="ftp-btn">Auf SFTP-Server hochladen</button><button type="button" id="resetBtn" class="danger-btn">Neue Veranstaltung / Zurücksetzen</button></div>
     <p id="ftpStatus" class="status" aria-live="polite"></p>
   </form>
