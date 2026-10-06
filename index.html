@@ -44,7 +44,6 @@
       .status { @apply min-h-6 text-gray-700 font-semibold; }
       .required-mark { @apply inline ml-0.5 font-bold text-gray-900; }
       .required-note { @apply mb-3 text-sm text-gray-600; }
-      pre { @apply m-0 whitespace-pre-wrap break-words bg-gray-900 text-gray-200 rounded-xl p-4 min-h-36 overflow-x-auto; }
     }
   </style>
 </head>
@@ -91,7 +90,6 @@
         <small>Ein Eintrag pro Zeile.</small>
       </label>
     </section>
-    <section class="panel"><div class="section-header"><h2>Vorschau</h2><button type="button" id="previewBtn" class="secondary-btn">Vorschau aktualisieren</button></div><pre id="jsonPreview"></pre></section>
     <div class="actions"><button type="button" id="ftpUploadBtn" class="ftp-btn">Auf SFTP-Server hochladen</button><button type="button" id="resetBtn" class="danger-btn">Neue Veranstaltung / Zurücksetzen</button></div>
     <p id="ftpStatus" class="status" aria-live="polite"></p>
   </form>
